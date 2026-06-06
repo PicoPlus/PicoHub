@@ -97,6 +97,13 @@ Open http://localhost:8000 (or http://localhost:8000/public/ for subdirectory mo
 | `/admin/login` | Admin login |
 | `/admin/owner-select` | HubSpot owner picker |
 | `/admin/dashboard` | Admin dashboard |
+| `/admin/contacts` | Contact list |
+| `/admin/contacts/create` | Create contact (multi-step with Zohal identity verification) |
+| `/admin/deals` | Deal list |
+| `/admin/kanban` | Kanban board view of deals |
+| `/admin/tickets` | Support tickets |
+| `/admin/analytics` | Analytics & stats |
+| `/admin/settings` | System settings & integrations status |
 
 ## Original project
 

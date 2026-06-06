@@ -11,22 +11,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?= asset('css/app.css') ?>" rel="stylesheet">
+    <link href="<?= asset('css/admin.css') ?>" rel="stylesheet">
     <link href="<?= asset('css/mobile.css') ?>" rel="stylesheet">
-    <style>
-        .admin-sidebar { min-height: 100vh; background: #1e293b; }
-        .admin-sidebar .nav-link { color: #cbd5e1; border-radius: .5rem; margin-bottom: .25rem; }
-        .admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active { background: #334155; color: #fff; }
-        .admin-content { background: #f8fafc; min-height: 100vh; }
-    </style>
 </head>
 <body>
     <?php
     $currentPath = \App\Support\AppPath::normalizeRequestPath(
         parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'
     );
-    $navClass = static fn (string $path) => str_starts_with($currentPath, $path) ? 'active' : '';
+    $navClass = static function (string $path) use ($currentPath) {
+        if ($path === $currentPath) return 'active';
+        if ($path !== '/admin/contacts/create' && str_starts_with($currentPath, $path) && !str_starts_with($currentPath, $path . '/create')) return 'active';
+        return '';
+    };
     $navItems = [
         ['/admin/dashboard', 'bi-speedometer2', 'داشبورد'],
+        ['/admin/contacts/create', 'bi-person-plus', 'ثبت مخاطب'],
         ['/admin/kanban', 'bi-kanban', 'کانبان'],
         ['/admin/contacts', 'bi-people', 'مخاطبین'],
         ['/admin/deals', 'bi-briefcase', 'معاملات'],
@@ -72,7 +72,7 @@
     <div class="container-fluid p-0">
         <div class="row g-0">
             <aside class="col-md-3 col-lg-2 admin-sidebar p-3 d-none d-md-block">
-                <h5 class="text-white mb-4"><i class="bi bi-grid-1x2-fill me-2"></i>پیکوپلاس</h5>
+                <div class="sidebar-brand"><i class="bi bi-grid-1x2-fill"></i>پیکوپلاس</div>
                 <nav class="nav flex-column">
                     <?php foreach ($navItems as [$path, $icon, $label]): ?>
                         <a class="nav-link <?= $navClass($path) ?>" href="<?= url($path) ?>">

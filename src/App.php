@@ -15,6 +15,7 @@ use App\Controllers\Deal\SearchController;
 use App\Controllers\Admin\OwnerSelectController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\AdminPageController;
+use App\Controllers\Admin\CreateContactController;
 
 class App
 {
@@ -51,6 +52,14 @@ class App
         $router->get('/admin/tickets', [AdminPageController::class, 'tickets'], [AdminAuth::class]);
         $router->get('/admin/analytics', [AdminPageController::class, 'analytics'], [AdminAuth::class]);
         $router->get('/admin/settings', [AdminPageController::class, 'settings'], [AdminAuth::class]);
+
+        // Admin: Create Contact
+        $router->get('/admin/contacts/create', [CreateContactController::class, 'show'], [AdminAuth::class]);
+        $router->post('/admin/contacts/create/verify-identity', [CreateContactController::class, 'verifyIdentity'], [AdminAuth::class]);
+        $router->post('/admin/contacts/create/send-otp', [CreateContactController::class, 'sendOtp'], [AdminAuth::class]);
+        $router->post('/admin/contacts/create/verify-otp', [CreateContactController::class, 'verifyOtp'], [AdminAuth::class]);
+        $router->post('/admin/contacts/create/store', [CreateContactController::class, 'store'], [AdminAuth::class]);
+        $router->get('/admin/contacts/create/reset', [CreateContactController::class, 'reset'], [AdminAuth::class]);
 
         $router->get('/set-culture/fa-IR', static function () {
             $_SESSION['locale'] = 'fa-IR';
