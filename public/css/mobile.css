@@ -1,0 +1,338 @@
+/* =============================================
+   PicoPlus — Mobile-first enhancements
+   ============================================= */
+
+:root {
+    --touch-min: 44px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+    overflow-x: hidden;
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 767.98px) {
+    .form-control,
+    .form-select,
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Touch-friendly controls */
+.btn,
+.form-control,
+.form-select,
+.nav-link,
+.list-group-item-action {
+    min-height: var(--touch-min);
+}
+
+.btn-sm {
+    min-height: 38px;
+    padding: 0.5rem 0.875rem;
+}
+
+/* Flash alerts — compact on mobile */
+.flash-container {
+    position: sticky;
+    top: var(--safe-top);
+    z-index: 1050;
+    padding: 0.75rem 0.75rem 0;
+}
+
+.flash-container .alert {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* Page shells */
+.page-shell {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    padding-bottom: calc(1rem + var(--safe-bottom));
+}
+
+@media (min-width: 768px) {
+    .page-shell {
+        padding: 1.5rem;
+        padding-bottom: calc(1.5rem + var(--safe-bottom));
+    }
+}
+
+/* Auth mobile */
+@media (max-width: 575.98px) {
+    .auth-container {
+        align-items: flex-start;
+        padding: calc(0.75rem + var(--safe-top)) 0.75rem calc(1rem + var(--safe-bottom));
+        min-height: 100dvh;
+    }
+
+    .auth-card {
+        padding: 1.25rem;
+        border-radius: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .auth-title {
+        font-size: 1.35rem;
+    }
+
+    .auth-subtitle {
+        font-size: 0.875rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .register-steps {
+        gap: 0.35rem;
+    }
+
+    .register-step {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.35rem;
+    }
+}
+
+/* Register step pills */
+.register-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.register-step {
+    background: #f1f5f9;
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.5rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: #64748b;
+    line-height: 1.3;
+}
+
+.register-step.active {
+    background: #e0e7ff;
+    color: #4338ca;
+    font-weight: 700;
+}
+
+.register-step.done {
+    background: #d1fae5;
+    color: #047857;
+}
+
+/* OTP input */
+.otp-input {
+    letter-spacing: 0.35em;
+    text-align: center;
+    font-size: 1.35rem !important;
+    font-weight: 600;
+}
+
+/* User panel */
+.panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.panel-header__info h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.15rem;
+}
+
+@media (min-width: 768px) {
+    .panel-header__info h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.stat-card-mobile {
+    border: 0;
+    border-radius: 0.875rem;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+    height: 100%;
+}
+
+.stat-card-mobile .card-body {
+    padding: 1rem;
+}
+
+.stat-card-mobile small {
+    font-size: 0.75rem;
+}
+
+.stat-card-mobile h4 {
+    font-size: 1.25rem;
+    margin: 0.25rem 0 0;
+    font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .stat-card-mobile h4 {
+        font-size: 1.5rem;
+    }
+}
+
+.deals-section .card-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+}
+
+.deal-card-mobile {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1rem;
+    margin-bottom: 0.75rem;
+    background: #fff;
+}
+
+.deal-card-mobile__title {
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    word-break: break-word;
+}
+
+.deal-card-mobile__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    color: #64748b;
+}
+
+.deal-card-mobile__amount {
+    color: #059669;
+    font-weight: 700;
+}
+
+/* Search page */
+.search-form-mobile .form-control {
+    border-radius: 0.5rem !important;
+}
+
+.search-form-mobile .btn {
+    width: 100%;
+    border-radius: 0.5rem !important;
+}
+
+@media (min-width: 576px) {
+    .search-form-mobile {
+        flex-direction: row !important;
+    }
+
+    .search-form-mobile .btn {
+        width: auto;
+        min-width: 6rem;
+    }
+}
+
+/* Admin mobile shell */
+.admin-mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    padding-top: calc(0.75rem + var(--safe-top));
+    background: #1e293b;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.admin-menu-btn {
+    width: var(--touch-min);
+    height: var(--touch-min);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.admin-offcanvas {
+    background: #1e293b;
+    color: #cbd5e1;
+}
+
+.admin-offcanvas .offcanvas-header {
+    border-bottom: 1px solid #334155;
+}
+
+.admin-offcanvas .nav-link {
+    color: #cbd5e1;
+    border-radius: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.75rem 1rem;
+}
+
+.admin-offcanvas .nav-link:hover,
+.admin-offcanvas .nav-link.active {
+    background: #334155;
+    color: #fff;
+}
+
+.admin-content-mobile {
+    padding: 1rem;
+    padding-bottom: calc(1rem + var(--safe-bottom));
+    background: #f8fafc;
+    min-height: calc(100dvh - 60px);
+}
+
+@media (min-width: 768px) {
+    .admin-content-mobile {
+        padding: 1.5rem;
+    }
+}
+
+/* Owner select list */
+.owner-option {
+    cursor: pointer;
+    min-height: var(--touch-min);
+}
+
+.owner-option input[type="radio"] {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
+}
+
+/* Utility */
+.text-break-word {
+    word-break: break-word;
+}
+
+.w-100-mobile {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .w-100-mobile {
+        width: auto;
+    }
+}
