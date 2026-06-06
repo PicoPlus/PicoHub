@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#1e293b">
+    <meta name="theme-color" content="#0f172a">
     <base href="<?= e(rtrim(url('/'), '/') . '/') ?>">
     <title><?= e($title ?? 'پنل مدیریت') ?> — PicoPlus</title>
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-    <link href="https://fonts.bunny.net/css?family=vazirmatn:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=vazirmatn:400,500,600,700,800" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?= asset('css/app.css') ?>" rel="stylesheet">
@@ -24,15 +24,24 @@
         if ($path !== '/admin/contacts/create' && str_starts_with($currentPath, $path) && !str_starts_with($currentPath, $path . '/create')) return 'active';
         return '';
     };
-    $navItems = [
-        ['/admin/dashboard', 'bi-speedometer2', 'داشبورد'],
-        ['/admin/contacts/create', 'bi-person-plus', 'ثبت مخاطب'],
-        ['/admin/kanban', 'bi-kanban', 'کانبان'],
-        ['/admin/contacts', 'bi-people', 'مخاطبین'],
-        ['/admin/deals', 'bi-briefcase', 'معاملات'],
-        ['/admin/tickets', 'bi-ticket', 'تیکت‌ها'],
-        ['/admin/analytics', 'bi-graph-up', 'تحلیل‌ها'],
-        ['/admin/settings', 'bi-gear', 'تنظیمات'],
+
+    $navSections = [
+        'اصلی' => [
+            ['/admin/dashboard', 'bi-speedometer2', 'داشبورد'],
+            ['/admin/analytics', 'bi-graph-up', 'تحلیل‌ها'],
+        ],
+        'CRM' => [
+            ['/admin/contacts', 'bi-people', 'مخاطبین'],
+            ['/admin/contacts/create', 'bi-person-plus', 'ثبت مخاطب'],
+            ['/admin/deals', 'bi-briefcase', 'معاملات'],
+            ['/admin/companies', 'bi-building', 'شرکت‌ها'],
+            ['/admin/tickets', 'bi-ticket-detailed', 'تیکت‌ها'],
+        ],
+        'مدیریت' => [
+            ['/admin/users', 'bi-person-gear', 'کاربران'],
+            ['/admin/sms', 'bi-chat-dots', 'پیامک'],
+            ['/admin/settings', 'bi-gear', 'تنظیمات'],
+        ],
     ];
     ?>
 
@@ -41,7 +50,7 @@
         <button class="admin-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminNav" aria-label="منو">
             <i class="bi bi-list"></i>
         </button>
-        <strong class="text-truncate">پیکوپلاس</strong>
+        <strong class="text-truncate text-white">پیکوپلاس</strong>
         <form action="<?= url('/admin/logout') ?>" method="POST" class="m-0">
             <?= csrf_field() ?>
             <button type="submit" class="admin-menu-btn" aria-label="خروج"><i class="bi bi-box-arrow-left"></i></button>
@@ -56,10 +65,13 @@
         </div>
         <div class="offcanvas-body d-flex flex-column">
             <nav class="nav flex-column flex-grow-1">
-                <?php foreach ($navItems as [$path, $icon, $label]): ?>
-                    <a class="nav-link <?= $navClass($path) ?>" href="<?= url($path) ?>">
-                        <i class="bi <?= e($icon) ?> me-2"></i><?= e($label) ?>
-                    </a>
+                <?php foreach ($navSections as $section => $items): ?>
+                    <div class="nav-section-title"><?= e($section) ?></div>
+                    <?php foreach ($items as [$path, $icon, $label]): ?>
+                        <a class="nav-link <?= $navClass($path) ?>" href="<?= url($path) ?>">
+                            <i class="bi <?= e($icon) ?>"></i><?= e($label) ?>
+                        </a>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             </nav>
             <form action="<?= url('/admin/logout') ?>" method="POST" class="mt-3">
@@ -74,10 +86,13 @@
             <aside class="col-md-3 col-lg-2 admin-sidebar p-3 d-none d-md-block">
                 <div class="sidebar-brand"><i class="bi bi-grid-1x2-fill"></i>پیکوپلاس</div>
                 <nav class="nav flex-column">
-                    <?php foreach ($navItems as [$path, $icon, $label]): ?>
-                        <a class="nav-link <?= $navClass($path) ?>" href="<?= url($path) ?>">
-                            <i class="bi <?= e($icon) ?> me-2"></i><?= e($label) ?>
-                        </a>
+                    <?php foreach ($navSections as $section => $items): ?>
+                        <div class="nav-section-title"><?= e($section) ?></div>
+                        <?php foreach ($items as [$path, $icon, $label]): ?>
+                            <a class="nav-link <?= $navClass($path) ?>" href="<?= url($path) ?>">
+                                <i class="bi <?= e($icon) ?>"></i><?= e($label) ?>
+                            </a>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 </nav>
                 <form action="<?= url('/admin/logout') ?>" method="POST" class="mt-4">
@@ -91,5 +106,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <?= $scripts ?? '' ?>
 </body>
 </html>
